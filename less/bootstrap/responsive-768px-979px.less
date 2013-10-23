@@ -1,0 +1,25 @@
+// PORTRAIT TABLET TO DEFAULT DESKTOP
+// ----------------------------------
+
+@media (min-width: 768px) and (max-width: 979px) {
+	
+.show_desktops{ display:none !important;}	
+.short_login_form{input[type="text"],input[type="password"]{width:115px !important; padding:8px 2px; font-size:13px;}}
+.top_nav{ list-style:none; float:right;
+li{ display:inline; margin:0px; padding:0px;}
+a{ font-size:11px !important; margin:-2px 0px 0 !important;background-position:center 5px; width:60px !important; text-align:center;text-decoration:none !important;color:#222;}
+}
+
+
+  // Fixed grid
+  #grid > .core(42px, 20px);
+
+  // Fluid grid
+  #grid > .fluid(5.801104972%, 2.762430939%);
+
+  // Input grid
+  #grid > .input(42px, 20px);
+
+  // No need to reset .thumbnails here since it's the same @gridGutterWidth
+
+}
