@@ -4,56 +4,50 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-
-	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
-
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
-
+	<?php $base_url = Yii::app()->baseUrl; ?>
+	<link rel="stylesheet/less" href="<?php echo $base_url; ?>/less/bootstrap-responsive.less">            
+    <!--[if IE 8]> <link rel="stylesheet/less" href="<?php echo $base_url; ?>/less/ie8.less"></link><![endif]-->
+    <link rel="stylesheet/less" href="<?php echo $base_url; ?>/less/style.less">	
+	<link rel="stylesheet" type="text/css" media="screen,projection" href="<?php echo $base_url; ?>/css/ui.totop.css" />
+	<link rel="stylesheet" type="text/css" media="screen,projection" href="<?php echo $base_url; ?>/css/jquery.pointpoint.css" />
+    <script src="<?php echo $base_url; ?>/js/libs/less-1.3.0.min.js"></script>
+	<?php
+	$cs = Yii::app()->clientScript;
+	$cs->scriptMap = array('jquery.js'=>$base_url.'/js/jquery-1.7.1.min.js'); 
+	$cs->registerCoreScript('jquery');
+	Yii::app()->clientScript->addPackage('other-required-scripts', array(
+		'baseUrl'=>$base_url, // or basePath
+		'js'=>array(
+			"js/libs/modernizr-2.5.3-respond-1.1.0.min.js",
+			"js/easing.js",
+			"js/jquery.history.js",
+			"js/libs/bootstrap/bootstrap.min.js",
+			"js/plugins.js",
+			"js/script.js",
+			"js/jquery.ui.totop.min.js",
+			"js/jquery.colorbox-min.js",
+			"js/transform.js",
+		),
+		'depends'=>array('jquery')
+	));
+	Yii::app()->clientScript->registerPackage('other-required-scripts');
+	?>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
-
-<div class="container" id="page">
-
-	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-	</div><!-- header -->
-
-	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		)); ?>
-	</div><!-- mainmenu -->
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
-
-	<?php echo $content; ?>
-
-	<div class="clear"></div>
-
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
-
-</div><!-- page -->
-
+	<?php //$this->renderPartial('/shared/_top_nav'); ?>
+	<div class="container" id="main_container">        
+		<div class="row">
+			<div id="main">                    
+				<article>
+					<?php foreach(Yii::app()->user->getFlashes() as $key => $message) { ?>
+					    <div class="alert alert-<?php echo $key; ?>"><?php echo $message; ?><a class="close" data-dismiss="alert" href="#">&times;</a></div>
+					<?php } ?>
+					<?php echo $content; ?>
+				</article>
+			</div><!--end #main -->
+		</div><!--end row -->
+	</div><!--end #main_container -->
 </body>
 </html>
