@@ -65,11 +65,19 @@ class FinanceLog extends CActiveRecord
 		);
 	}
 
-	public function beforSave() {
+	public function beforeSave() {
 		if($this->isNewRecord)
 			$this->created_at = time();
 		$this->updated_at = time();
-		return parent::beforSave();
+		return parent::beforeSave();
+	}
+
+	public function afterSave() {
+		if($this->isNewRecord) {
+			$this->team->finance_amount -= $this->amount;
+			$this->team->save();
+		}
+		return parent::afterSave();
 	}
 
 	public static function create($attributes) {

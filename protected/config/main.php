@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Advertisement Simulator',
+	'name'=>'Adverb',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -25,13 +25,16 @@ return array(
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
+		'admin',
 	),
 
 	// application components
 	'components'=>array(
 		'user'=>array(
+			'class' => 'WebUser',
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+			'loginUrl'=>array('/site/login'),
 		),
 		// uncomment the following to enable URLs in path-format
 		

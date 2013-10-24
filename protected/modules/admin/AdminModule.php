@@ -3,7 +3,7 @@ class AdminModule extends CWebModule
 {
 	public $defaultController = 'team';
 	public function init() {
-		$this->layoutPath = Yii::getPathOfAlias('application.modules.views.layouts');
+		$this->layoutPath = Yii::getPathOfAlias('application.views.layouts');
 		$this->layout='main';
 	}
 

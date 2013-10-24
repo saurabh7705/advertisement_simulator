@@ -34,13 +34,19 @@ class AdvertisementUnit extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('advertisement_type_id, title', 'required'),
-			array('advertisement_type_id, cost, impressions, in_auction, auction_deadline, created_at, updated_at', 'numerical', 'integerOnly'=>true),
+			array('advertisement_type_id, cost, impressions, in_auction, created_at, updated_at', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
-			array('description', 'safe'),
+			array('description, auction_deadline', 'safe'),
+			array('auction_deadline', 'requiredWhenInAuction'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, advertisement_type_id, title, description, cost, impressions, in_auction, auction_deadline, created_at, updated_at', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public function requiredWhenInAuction($attribute,$params) {
+		if($this->in_auction == 1 && !$this->auction_deadline)
+			$this->addError($attribute, "Auction Deadline cannot be blank.");
 	}
 
 	/**
@@ -74,11 +80,11 @@ class AdvertisementUnit extends CActiveRecord
 		);
 	}
 
-	public function beforSave() {
+	public function beforeSave() {
 		if($this->isNewRecord)
 			$this->created_at = time();
 		$this->updated_at = time();
-		return parent::beforSave();
+		return parent::beforeSave();
 	}
 
 	public static function create($attributes) {
@@ -107,7 +113,8 @@ class AdvertisementUnit extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('advertisement_type_id',$this->advertisement_type_id);
+		$criteria->with[] = 'advertisement_type';
+		$criteria->compare('advertisement_type.name',$this->advertisement_type_id, true);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('cost',$this->cost);

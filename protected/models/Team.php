@@ -17,6 +17,7 @@
 class Team extends CActiveRecord
 {
 	public $password_repeat;
+	const DEFAULT_FINANCE_AMOUNT = 1000000;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -36,7 +37,7 @@ class Team extends CActiveRecord
 			array('name, email, password, product_name', 'required'),
 			array('email','email'),
 			array('email','unique'),
-			array('password_repeat', 'compare', 'compareAttribute'=>'password','message'=>'Passwords do not match.'),
+			array('password_repeat', 'compare', 'compareAttribute'=>'password','message'=>'Passwords do not match.', 'on'=>'create_or_update'),
 			array('finance_amount, created_at, updated_at', 'numerical', 'integerOnly'=>true),
 			array('name, email, password, product_name', 'length', 'max'=>255),
 			array('product_description', 'safe'),
@@ -55,6 +56,7 @@ class Team extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'unit_logs'=>array(self::HAS_MANY, 'FinanceLog', 'team_id'),
+			'unit_log'=>array(self::HAS_ONE, 'FinanceLog', 'team_id', 'condition'=>'advertisement_unit_id = :unit_id'),
 		);
 	}
 
@@ -83,11 +85,13 @@ class Team extends CActiveRecord
         );
 	}
 
-	public function beforSave() {
-		if($this->isNewRecord)
+	public function beforeSave() {
+		if($this->isNewRecord) {
 			$this->created_at = time();
+			$this->finance_amount = self::DEFAULT_FINANCE_AMOUNT;
+		}
 		$this->updated_at = time();
-		return parent::beforSave();
+		return parent::beforeSave();
 	}
 
 	public static function create($attributes) {
@@ -95,6 +99,17 @@ class Team extends CActiveRecord
 		$model->attributes = $attributes;
 		$model->save();
 		return $model;
+	}
+
+	public function getTotalImpressions() {
+		$total = 0;
+		foreach($this->unit_logs as $log)
+			$total += $log->advertisement_unit->impressions; 
+		return $total;
+	}
+
+	public function hasBalance($cost) {
+		return ($this->finance_amount > $cost);
 	}
 
 	/**
@@ -114,6 +129,7 @@ class Team extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+		$criteria->addCondition('id != 1');
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('name',$this->name,true);

@@ -4,7 +4,7 @@
 // Any writable CConsoleApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Advertisement Simulator',
+	'name'=>'Adverb',
 
 	// preloading 'log' component
 	'preload'=>array('log'),

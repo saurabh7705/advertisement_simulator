@@ -60,11 +60,11 @@ class AdvertisementType extends CActiveRecord
 		);
 	}
 
-	public function beforSave() {
+	public function beforeSave() {
 		if($this->isNewRecord)
 			$this->created_at = time();
 		$this->updated_at = time();
-		return parent::beforSave();
+		return parent::beforeSave();
 	}
 
 	public static function create($attributes) {

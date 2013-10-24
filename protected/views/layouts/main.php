@@ -36,7 +36,7 @@
 </head>
 
 <body>
-	<?php //$this->renderPartial('/shared/_top_nav'); ?>
+	<?php $this->renderPartial('//shared/_top_big_nav'); ?>
 	<div class="container" id="main_container">        
 		<div class="row">
 			<div id="main">                    
