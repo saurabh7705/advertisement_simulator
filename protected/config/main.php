@@ -1,6 +1,6 @@
 <?php
-
-DJJob::configure("mysql:host=localhost;dbname=advertisement_simulator", array( "mysql_user" => "root", "mysql_pass" => "root"));
+//DJJob::configure("mysql:host=localhost;dbname=advertisement_simulator", array( "mysql_user" => "root", "mysql_pass" => "root"));
+DJJob::configure("mysql:host=localhost;dbname=advertisement_simulator", array( "mysql_user" => "root", "mysql_pass" => "clog186"));
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
@@ -57,7 +57,8 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=advertisement_simulator',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'root',
+			//'password' => 'root',
+			'password' => 'clog186',
 			'charset' => 'utf8',
 		),
 		
