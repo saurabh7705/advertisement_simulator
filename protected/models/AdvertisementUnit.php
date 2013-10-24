@@ -17,6 +17,9 @@
  */
 class AdvertisementUnit extends CActiveRecord
 {
+	const AUCTION_INACTIVE = 0;
+	const AUCTION_ACTIVE = 1;
+	const AUCTION_CLOSED = 2;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -36,7 +39,7 @@ class AdvertisementUnit extends CActiveRecord
 			array('advertisement_type_id, title', 'required'),
 			array('advertisement_type_id, cost, impressions, in_auction, created_at, updated_at', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
-			array('description, auction_deadline', 'safe'),
+			array('description, auction_deadline, auction_status, active_bid_id', 'safe'),
 			array('auction_deadline', 'requiredWhenInAuction'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -58,6 +61,8 @@ class AdvertisementUnit extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'advertisement_type'=>array(self::BELONGS_TO, 'AdvertisementType', 'advertisement_type_id'),
+			'active_bid'=>array(self::BELONGS_TO, 'Bid', 'active_bid_id'),
+			'bids_count'=>array(self::STAT, 'Bid', 'advertisement_unit_id'),
 		);
 	}
 
@@ -93,6 +98,100 @@ class AdvertisementUnit extends CActiveRecord
 		$model->save();
 		return $model;
 	}
+
+	public function startAuction() {
+		if($this->in_auction == 1){
+			$this->auction_status = self::AUCTION_ACTIVE;
+			$this->save();
+			DJJob::enqueue(new AdvertisementUnitJob($this->id, $this->auction_deadline),"default",date("Y-m-d H:i:s",$this->auction_deadline), 1);
+		}
+	}
+
+	public function auctionStarted() {
+		return ($this->auction_status == self::AUCTION_ACTIVE);
+	}
+
+	public function closeAuction() {
+		if($this->auctionStarted() && $this->active_bid) {
+			FinanceLog::create(array(
+				'advertisement_unit_id'=>$this->id,
+				'team_id'=>$this->active_bid->team_id,
+				'amount'=>$this->active_bid->amount,
+			));
+			$this->auction_status = self::AUCTION_CLOSED;
+			$this->save();
+		}
+	}
+
+	public function getMinAllowedBidAmount() {
+		if($this->auctionStarted()) {
+			if($this->active_bid)
+				return 100 * (ceil((1.02 * $this->active_bid->amount) / 100));
+			else {
+				if($this->cost < 10000)
+					return 10000;
+				else
+					return $this->cost;
+			}
+		}
+		else
+			return NULL; //throw exception here
+	}
+
+	public function updateCurrentBidRecords($bid) {
+		$this->active_bid_id = $bid->id;
+		$this->update(array('active_bid_id'));
+	}
+
+	public function checkAndExtendTransfer($bid) {
+		if(($this->auction_deadline - time()) <= 180) {
+			$this->auction_deadline = strtotime('+3 minutes', $this->auction_deadline);
+			$this->update(array('auction_deadline'));	
+			DJJob::enqueue(new AdvertisementUnitJob($this->id, $this->auction_deadline),"default",date("Y-m-d H:i:s",$this->auction_deadline), 1);
+		}		
+	}
+
+	public function showBidCountdown($diff){
+        $date = explode('/',$diff);        
+        
+        if($date[0] > 0){
+            if($date[0] == 1)
+                $day_str = 'day';
+            else
+                $day_str = 'days';
+            if($date[1] == 1)
+                $hour_str = 'hr';
+            else
+                $hour_str = 'hrs';
+            $date_str = "$date[0] $day_str $date[1] $hour_str";
+            return $date_str;
+        }
+        
+        if($date[1] > 0){
+            if($date[1] == 1)
+                $hour_str = 'hr';
+            else
+                $hour_str = 'hrs';
+            if($date[2] == 1)
+                $min_str = 'min';
+            else
+                $min_str = 'mins';
+            $date_str = "$date[1] $hour_str $date[2] $min_str";
+        }
+        else{
+			if($date[2] == 0)
+                $date_str = "few seconds left";
+			else {
+				if($date[2] == 1)
+	                $min_str = 'min';
+	            else if($date[2] > 1)
+	                $min_str = 'mins';
+	            $date_str = "less than $date[2] $min_str";
+			}
+        }
+        
+        return $date_str;
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

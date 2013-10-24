@@ -9,9 +9,11 @@
 		<p class="m10">Impressions: <strong><?php echo number_format($model->impressions); ?></strong></p>
 	</div><br /><br />
 
-	<?php if($model->in_auction == 1) {
-		//
-	}
+	<?php if($model->auctionStarted()) { ?>
+		<div id="bid_area_for_current_transfer">
+			<?php echo $this->renderPartial('_bid',array('unit'=>$model,'default_bid'=>$model->minAllowedBidAmount)); ?>
+		</div>
+	<?php }
 	else if( !$team->unit_log(array('params'=>array('unit_id'=>$model->id))) ) { ?>
 		<center><?php echo CHtml::link('Buy', array('/advertisementUnit/buy', 'id'=>$model->id), array('class'=>'btn btn-large btn-success buy_button')); ?></center>
 	<?php }
@@ -32,5 +34,25 @@ $('.buy_button').click(function(){
 	}
 	else
 		return false;
-})
+});
+
+$("#refresh_bid").live('click',function(){
+	$('#loader_bid').show();
+   	$.ajax({
+        'type':'post',
+        'data':{"id":<?php echo $model->id; ?>},
+        'url':"<?php echo Yii::app()->createUrl('/advertisementUnit/computeDefaultBid'); ?>",
+        'cache':false,
+        'success':function(html){
+          if(html != 'error') {
+            if(html == 'transferred')
+                location.reload();
+            else {
+                $("#bid_area_for_current_transfer").html(html);
+                $('#time_of_refresh').show();
+            }
+          }
+      	}
+    });  
+});
 </script>

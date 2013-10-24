@@ -31,6 +31,21 @@ class AdvertisementUnitController extends Controller
 		));
 	}
 
+	public function actionStartAuction($id) {
+		$model = $this->loadModel($id);
+		$model->startAuction();
+		Yii::app()->user->setFlash('success', 'Auction started successfully.');
+		$this->redirect(array('/admin/advertisementUnit/index'));
+	}
+
+	public function actionStartAllAuction() {
+		$units = AdvertisementUnit::model()->findAll('in_auction = 1');
+		foreach($units as $unit)
+			$unit->startAuction();
+		Yii::app()->user->setFlash('success', 'All Auctionable ad units have been put onto the auction list.');
+		$this->redirect(array('/admin/advertisementUnit/index'));
+	}
+
 	public function actionDestroy($id) {
 		$model = $this->loadModel($id);
 		$model->delete();

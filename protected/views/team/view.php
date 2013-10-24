@@ -24,7 +24,7 @@
 		</div>
 		<div class="span4">
 			<h4 class="sub_head">Left Balance</h4>
-			<div>Rs. <?php echo number_format($team->finance_amount); ?></div>
+			<div>Rs. <?php echo number_format($team->leftBalance); ?></div>
 
 			<h4 class="sub_head">Total Impressions</h4>
 			<div><?php echo number_format($team->totalImpressions); ?></div>

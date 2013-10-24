@@ -109,7 +109,16 @@ class Team extends CActiveRecord
 	}
 
 	public function hasBalance($cost) {
-		return ($this->finance_amount > $cost);
+		return ($this->leftBalance > $cost);
+	}
+
+	public function getLeftBalance() {
+		$left_balance = $this->finance_amount;
+		$bid_query = "Select sum(bid.amount) as bid_amount from advertisement_unit JOIN bid on bid.id=advertisement_unit.active_bid_id where advertisement_unit.auction_status=1 and bid.team_id=$this->id and advertisement_unit.active_bid_id is NOT NULL";
+		$bid_amount = Yii::app()->db->createCommand($bid_query)->queryScalar();
+		if($bid_amount)
+			$left_balance -= $bid_amount;
+		return $left_balance;
 	}
 
 	/**

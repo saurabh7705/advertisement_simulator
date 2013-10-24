@@ -18,6 +18,10 @@ class m131023_130040_team extends CDbMigration
 			),
 			'ENGINE=InnoDB'
 		);
+
+		$team = new Team;
+		$team->attributes = array('name'=>'Admin', 'email'=>'admin@adverb.com', 'product_name'=>'NA', 'password'=>md5('testing12345'));
+		$team->save();
 	}
 
 	public function safeDown() {

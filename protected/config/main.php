@@ -1,5 +1,7 @@
 <?php
 
+DJJob::configure("mysql:host=localhost;dbname=advertisement_simulator", array( "mysql_user" => "root", "mysql_pass" => "root"));
+
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
@@ -16,6 +18,9 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.vendor.*',
+		'application.commands.*',
+		'application.jobs.*',
 	),
 
 	'modules'=>array(

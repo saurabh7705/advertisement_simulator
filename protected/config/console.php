@@ -1,4 +1,5 @@
 <?php
+DJJob::configure("mysql:host=localhost;dbname=advertisement_simulator", array( "mysql_user" => "root", "mysql_pass" => "root"));
 
 // This is the configuration for yiic console application.
 // Any writable CConsoleApplication properties can be configured here.
@@ -8,6 +9,14 @@ return array(
 
 	// preloading 'log' component
 	'preload'=>array('log'),
+
+	'import'=>array(
+		'application.models.*',
+		'application.components.*',
+		'application.vendor.*',
+		'application.commands.*',
+		'application.jobs.*',
+	),
 
 	// application components
 	'components'=>array(

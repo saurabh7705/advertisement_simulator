@@ -23,6 +23,28 @@
 	            'value'=>'(!$data->auction_deadline) ? $data->auction_deadline : (date("H:i D d-m-Y",$data->auction_deadline))',
 	            'filter' => ''
 	        ),
+	        array(
+	            'name'=>'active_bid_id',
+	            'header'=>'Active Bid',
+	            'value'=>'($data->active_bid) ? number_format($data->active_bid->amount) : "" ',
+	            'filter' => ''
+	        ),
+	        array(
+			    'class'=>'CButtonColumn',
+			    'template'=>'{start_auction}',
+			    'buttons'=>array
+			    (
+			        'start_auction' => array
+			        (
+			            'label'=>'Start Auction',
+			            'url'=>'Yii::app()->createUrl("/admin/advertisementUnit/startAuction", array("id"=>$data->id))',
+						'visible' => '($data->in_auction == 1 && $data->auction_status == AdvertisementUnit::AUCTION_INACTIVE)',
+						'options' => array(
+							'confirm' => 'Sure you want to start auction of this ad unit?',
+						),
+			        ),
+			    )
+			),
 			array(
 				'class'=>'CButtonColumn',
 				'template'=>'{update}{delete}',

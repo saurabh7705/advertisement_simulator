@@ -49,6 +49,21 @@ class AdvertisementUnitController extends Controller
 		}		
 		$this->redirect(array('/team/view'));
 	}
+
+	public function actionComputeDefaultBid(){
+		if(isset($_POST['id'])) {
+			$model = $this->loadModel($_POST['id']);
+			if($model->auctionStarted() && $model->auction_deadline >= time()) {
+				$amount = $model->minAllowedBidAmount;
+				$this->renderPartial('_bid',array('unit'=>$model, 'default_bid'=>$amount));
+				return;
+			}
+			else
+				echo 'transferred';
+		}
+		else
+			echo 'error';
+	}
 	
 	public function loadModel($id) {
 		$model = AdvertisementUnit::model()->findByPk($id);
