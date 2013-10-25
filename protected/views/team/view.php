@@ -8,23 +8,32 @@
 	<div class="row-fluid m40">
 		<div class="span8">
 			<h4 class="sub_head">Bought Ad Units</h4>
-			<?php if(count($team->unit_logs) > 0 ) { 
-				foreach($team->unit_logs as $log_unit) { 
+			<?php if(count($team->unit_logs) > 0 ) { ?>
+				<table class="table table-striped">
+				<tr>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Cost</th>
+					<th>Impressions</th>
+					<th>Index</th>
+				</tr>
+				<?php foreach($team->unit_logs as $log_unit) { 
 					$ad_unit = $log_unit->advertisement_unit; ?>
-					<div class="theme_item">
-						<p><strong><?php echo $ad_unit->title; ?></strong></p>
-						<p><?php echo $ad_unit->description; ?></p><br />
-						<p>Cost: <strong>Rs. <?php echo number_format($log_unit->amount); ?></strong></p>
-						<p class="m10">Impressions: </strong><?php echo number_format($ad_unit->impressions); ?></strong></p>
-						<p class="m10">Index: </strong><?php echo $ad_unit->index; ?></strong></p>
-					</div>
+					<tr>
+						<td><strong><?php echo $ad_unit->title; ?></strong></td>
+						<td><?php echo $ad_unit->description; ?></p><br />
+						<td><strong>Rs. <?php echo number_format($log_unit->amount); ?></strong></td>
+						<td></strong><?php echo number_format($ad_unit->impressions); ?></strong></td>
+						<td></strong><?php echo $ad_unit->index; ?></strong></td>
+					</tr>
 				<?php } ?>
+				</table>
 			<?php } else { ?>
 				<section class="highlight_block_blue">No ad units bought till now.</section>
 			<?php } ?>
 		</div>
 		<div class="span4">
-			<h4 class="sub_head">Left Balance</h4>
+			<h4 class="sub_head">Current Balance</h4>
 			<div>Rs. <?php echo number_format($team->leftBalance); ?></div>
 
 			<h4 class="sub_head">Total Impressions</h4>
