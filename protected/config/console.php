@@ -22,7 +22,7 @@ return array(
 	// application components
 	'components'=>array(
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=advertisement_simulator; unix_socket=/tmp/mysql.sock',
+			'connectionString' => 'mysql:host=localhost;dbname=advertisement_simulator',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			//'password' => '112358',
