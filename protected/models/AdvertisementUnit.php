@@ -91,6 +91,12 @@ class AdvertisementUnit extends CActiveRecord
 		$this->updated_at = time();
 		return parent::beforeSave();
 	}
+	
+	public function afterSave() {
+		if($this->isNewRecord)
+			$this->startAuction();
+		return parent::afterSave();
+	}
 
 	public static function create($attributes) {
 		$model = new AdvertisementUnit;
@@ -100,9 +106,10 @@ class AdvertisementUnit extends CActiveRecord
 	}
 
 	public function startAuction() {
-		if($this->in_auction == 1){
+		if($this->in_auction == 1) {
+			$this->isNewRecord = false;
 			$this->auction_status = self::AUCTION_ACTIVE;
-			$this->save();
+			$this->saveAttributes(array('auction_status'));
 			DJJob::enqueue(new AdvertisementUnitJob($this->id, $this->auction_deadline),"default",date("Y-m-d H:i:s",$this->auction_deadline), 1);
 		}
 	}
@@ -226,6 +233,9 @@ class AdvertisementUnit extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+			    'defaultOrder'=>'t.created_at DESC',
+	        ),
 		));
 	}
 

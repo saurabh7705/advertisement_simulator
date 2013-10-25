@@ -2,7 +2,12 @@
 <div class="padit">
 	<center><h1><?php echo $team->name; ?><h1></center>
 
-	<h4 class="sub_head"><?php echo $team->product_name; ?></h4>
+	<h4 class="sub_head">
+		<?php echo $team->product_name; ?>
+		<?php if($team->company) { ?>
+			 (Company- <?php echo $team->company; ?>)
+		<?php } ?>
+	</h4>
 	<div><?php echo $team->product_description; ?></div>
 
 	<div class="row-fluid m40">

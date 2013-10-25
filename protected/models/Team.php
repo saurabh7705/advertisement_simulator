@@ -153,6 +153,9 @@ class Team extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+			    'defaultOrder'=>'t.created_at DESC',
+	        ),
 		));
 	}
 

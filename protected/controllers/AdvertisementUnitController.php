@@ -9,7 +9,7 @@ class AdvertisementUnitController extends Controller
 	}
 
 	public function filterSetTeam($filterChain) {
-		if(Yii::app()->user->isTeam)
+		if(!Yii::app()->user->isGuest)
 			$this->_team = Yii::app()->user->team;
 		else
 			throw new CHttpException(404,'The requested page does not exist.');

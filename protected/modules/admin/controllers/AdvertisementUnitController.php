@@ -17,8 +17,10 @@ class AdvertisementUnitController extends Controller
 				$new_model->extension = $new_model->file_name->getExtensionName();
 
 			if($new_model->save()){
-				$path = Yii::app()->basePath."/../ad_units/$new_model->id.$new_model->extension";
-				$new_model->file_name->saveAs($path);
+				if($new_model->file_name) {
+					$path = Yii::app()->basePath."/../ad_units/$new_model->id.$new_model->extension";
+					$new_model->file_name->saveAs($path);
+				}
 				$this->redirect(array('/admin/advertisementUnit/index'));
 			}
 		}
