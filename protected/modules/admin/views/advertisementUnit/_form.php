@@ -3,6 +3,7 @@
 	<?php $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'team-form',
 		'enableAjaxValidation'=>false,
+		'htmlOptions' => array('enctype' => 'multipart/form-data'),
 	)); ?>
 
 		<?php if($form->errorSummary($new_model) != "") { ?>
@@ -28,22 +29,32 @@
 			<?php echo $form->labelEx($new_model,'impressions'); ?>
 			<?php echo $form->textField($new_model,'impressions'); ?>
 		</div><br />
+
+		<div>
+			<?php echo $form->labelEx($new_model,'index'); ?>
+			<?php echo $form->textField($new_model,'index'); ?>
+		</div><br />
+
+		<div>
+			<?php echo $form->labelEx($new_model,'in_auction'); ?>
+			<?php echo $form->checkBox($new_model,'in_auction',array('class'=>'in_auction_checkbox')); ?>
+		</div><br />
+
+		<div class="deadline_wrapper" style="display:<?php echo ($new_model->in_auction == 1) ? 'block' : 'none'; ?>;">
+			<?php echo $form->labelEx($new_model,'auction_deadline'); ?>
+			<?php echo $form->textField($new_model,'auction_deadline',array('data-format'=>"hh:mm:ss dd-MM-yyyy", 'class'=>'in_auction_checkbox', 'value'=>date('H:i:s d-m-Y', $new_model->auction_deadline))); ?>
+			<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i></span>
+			<br />
+		</div>		
+
+		<div>
+			<?php echo $form->fileField($new_model,'file_name'); ?>
+		</div><br />
 		
 		<div>
 			<?php echo $form->labelEx($new_model,'description'); ?>
 			<?php echo $form->textArea($new_model,'description',array('class'=>'big_ta')); ?>
 		</div>
-
-		<div>
-			<?php echo $form->labelEx($new_model,'in_auction'); ?>
-			<?php echo $form->checkBox($new_model,'in_auction',array('class'=>'in_auction_checkbox')); ?>
-		</div>
-
-		<div class="deadline_wrapper" style="display:<?php echo ($new_model->in_auction == 1) ? 'block' : 'none'; ?>;">
-			<?php echo $form->labelEx($new_model,'auction_deadline'); ?>
-			<?php echo $form->textField($new_model,'auction_deadline',array('data-format'=>"hh:mm:ss dd-MM-yyyy", 'class'=>'in_auction_checkbox')); ?>
-			<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i></span>
-		</div>		
 		
 		<div class="buttons">
 			<?php echo CHtml::submitButton('Submit', array('class'=>'btn btn-success')); ?>

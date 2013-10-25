@@ -57,7 +57,7 @@ class Bid extends CActiveRecord
 	public function two_percent_more_than_previous($attribute, $params) {
 		if($this->isNewRecord) {
 			if($this->amount < $this->advertisement_unit->minAllowedBidAmount)
-				$this->addError($attribute, "Your bid must be atleast 2% more than the previous bid.");
+				$this->addError($attribute, "Your bid must be atleast 10% more than the previous bid.");
 		}		
 	}
 

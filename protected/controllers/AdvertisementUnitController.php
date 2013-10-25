@@ -50,6 +50,18 @@ class AdvertisementUnitController extends Controller
 		$this->redirect(array('/team/view'));
 	}
 
+	public function actionRefund($id) {
+		$model = $this->loadModel($id);
+		$log = $this->_team->unit_log(array('params'=>array('unit_id'=>$model->id)));
+		if( $log && !$model->in_auction){
+			$this->_team->finance_amount += $log->amount;
+			$this->_team->save();
+			$log->delete();
+			Yii::app()->user->setFlash('success', 'Refunded Successfully');
+		}		
+		$this->redirect(array('/team/view'));
+	}
+
 	public function actionComputeDefaultBid(){
 		if(isset($_POST['id'])) {
 			$model = $this->loadModel($_POST['id']);

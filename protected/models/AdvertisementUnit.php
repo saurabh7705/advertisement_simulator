@@ -39,11 +39,11 @@ class AdvertisementUnit extends CActiveRecord
 			array('advertisement_type_id, title', 'required'),
 			array('advertisement_type_id, cost, impressions, in_auction, created_at, updated_at', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
-			array('description, auction_deadline, auction_status, active_bid_id', 'safe'),
+			array('description, auction_deadline, auction_status, active_bid_id, index, file_name, extension', 'safe'),
 			array('auction_deadline', 'requiredWhenInAuction'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, advertisement_type_id, title, description, cost, impressions, in_auction, auction_deadline, created_at, updated_at', 'safe', 'on'=>'search'),
+			array('id, advertisement_type_id, title, description, cost, impressions, in_auction, auction_deadline, index, created_at, updated_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -126,7 +126,7 @@ class AdvertisementUnit extends CActiveRecord
 	public function getMinAllowedBidAmount() {
 		if($this->auctionStarted()) {
 			if($this->active_bid)
-				return 100 * (ceil((1.02 * $this->active_bid->amount) / 100));
+				return 100 * (ceil((1.10 * $this->active_bid->amount) / 100));
 			else {
 				if($this->cost < 10000)
 					return 10000;

@@ -11,8 +11,16 @@ class AdvertisementUnitController extends Controller
 			$new_model->attributes = $_POST["AdvertisementUnit"];
 			if($_POST['AdvertisementUnit']['auction_deadline'])
 				$new_model->auction_deadline = strtotime($_POST['AdvertisementUnit']['auction_deadline']);
-			if($new_model->save())
+
+			$new_model->file_name = CUploadedFile::getInstance($new_model, 'file_name');
+			if($new_model->file_name)
+				$new_model->extension = $new_model->file_name->getExtensionName();
+
+			if($new_model->save()){
+				$path = Yii::app()->basePath."/../ad_units/$new_model->id.$new_model->extension";
+				$new_model->file_name->saveAs($path);
 				$this->redirect(array('/admin/advertisementUnit/index'));
+			}
 		}
 		$this->render('index',array(
 			'new_model'=>$new_model,

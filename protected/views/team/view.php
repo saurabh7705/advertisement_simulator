@@ -14,8 +14,9 @@
 					<div class="theme_item">
 						<p><strong><?php echo $ad_unit->title; ?></strong></p>
 						<p><?php echo $ad_unit->description; ?></p><br />
-						<p>Cost: <strong>Rs. <?php echo number_format($ad_unit->cost); ?></strong></p>
+						<p>Cost: <strong>Rs. <?php echo number_format($log_unit->amount); ?></strong></p>
 						<p class="m10">Impressions: </strong><?php echo number_format($ad_unit->impressions); ?></strong></p>
+						<p class="m10">Index: </strong><?php echo $ad_unit->index; ?></strong></p>
 					</div>
 				<?php } ?>
 			<?php } else { ?>
