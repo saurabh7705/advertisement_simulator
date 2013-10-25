@@ -54,11 +54,10 @@ return array(
 		),
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=advertisement_simulator',
+			'connectionString' => 'mysql:host=localhost;dbname=advertisement_simulator; unix_socket=/tmp/mysql.sock',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'root',
-			//'password' => 'clog186',
+			'password' => '112358',
 			'charset' => 'utf8',
 		),
 		
