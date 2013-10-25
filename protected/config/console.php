@@ -27,6 +27,7 @@ return array(
 			'username' => 'root',
 			'password' => '112358',
 			//'password' => 'clog186',
+			//'password' => 'root',
 			'charset' => 'utf8',
 		),
 

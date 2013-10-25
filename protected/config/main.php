@@ -58,6 +58,8 @@ return array(
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => '112358',
+			//'password' => 'root',
+			//'password' => 'clog186',
 			'charset' => 'utf8',
 		),
 		

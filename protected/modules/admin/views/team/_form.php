@@ -26,6 +26,11 @@
 		<div>
 			<?php echo $form->labelEx($new_model,'product_description'); ?>
 			<?php echo $form->textArea($new_model,'product_description',array('class'=>'big_ta')); ?>
+		</div><br />
+
+		<div>
+			<?php echo $form->labelEx($new_model,'company'); ?>
+			<?php echo $form->textField($new_model,'company'); ?>
 		</div>
 		
 		<?php if($new_model->isNewRecord) { ?>
