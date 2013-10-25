@@ -25,8 +25,8 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=advertisement_simulator',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => 'root',
-			//'password' => 'clog186',
+			//'password' => 'root',
+			'password' => 'clog186',
 			'charset' => 'utf8',
 		),
 
