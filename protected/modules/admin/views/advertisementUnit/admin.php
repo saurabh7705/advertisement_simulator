@@ -9,6 +9,7 @@
 			'title',
 			'cost',
 			'impressions',
+			'index',
 			'description',
 			array(
 				'name'=>'advertisement_type_id',

@@ -13,7 +13,7 @@
 			),
 			'email',
 			'product_name',
-			//'product_description',
+			'company',
 			array(
 				'name'=>'finance_amount',
 				'value'=>'number_format($data->finance_amount)'
