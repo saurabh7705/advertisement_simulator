@@ -17,7 +17,7 @@
 class Team extends CActiveRecord
 {
 	public $password_repeat;
-	const DEFAULT_FINANCE_AMOUNT = 1000000;
+	const DEFAULT_FINANCE_AMOUNT = 3200000;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -39,11 +39,11 @@ class Team extends CActiveRecord
 			array('email','unique'),
 			array('password_repeat', 'compare', 'compareAttribute'=>'password','message'=>'Passwords do not match.', 'on'=>'create_or_update'),
 			array('finance_amount, created_at, updated_at', 'numerical', 'integerOnly'=>true),
-			array('name, email, password, product_name', 'length', 'max'=>255),
+			array('name, email, password, product_name, company', 'length', 'max'=>255),
 			array('product_description', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, email, password, product_name, product_description, finance_amount, created_at, updated_at', 'safe', 'on'=>'search'),
+			array('id, name, email, password, product_name, company, product_description, finance_amount, created_at, updated_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -146,6 +146,7 @@ class Team extends CActiveRecord
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('product_name',$this->product_name,true);
 		$criteria->compare('product_description',$this->product_description,true);
+		$criteria->compare('company',$this->company,true);
 		$criteria->compare('finance_amount',$this->finance_amount);
 		$criteria->compare('created_at',$this->created_at);
 		$criteria->compare('updated_at',$this->updated_at);

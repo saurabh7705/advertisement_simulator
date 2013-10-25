@@ -42,13 +42,18 @@
 
 		<div class="deadline_wrapper" style="display:<?php echo ($new_model->in_auction == 1) ? 'block' : 'none'; ?>;">
 			<?php echo $form->labelEx($new_model,'auction_deadline'); ?>
-			<?php echo $form->textField($new_model,'auction_deadline',array('data-format'=>"hh:mm:ss dd-MM-yyyy", 'class'=>'in_auction_checkbox', 'value'=>date('H:i:s d-m-Y', $new_model->auction_deadline))); ?>
+			<?php $deadline = $new_model->auction_deadline ? (date('H:i:s d-m-Y', $new_model->auction_deadline)) : ''; ?>
+			<?php echo $form->textField($new_model,'auction_deadline',array('data-format'=>"hh:mm:ss dd-MM-yyyy", 'class'=>'in_auction_checkbox', 'value'=>$deadline)); ?>
 			<span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar" class="icon-calendar"></i></span>
 			<br />
 		</div>		
 
 		<div>
 			<?php echo $form->fileField($new_model,'file_name'); ?>
+			<?php if($new_model->file_name){ ?>
+				<br />
+				<img style="width:200px;" src="<?php echo Yii::app()->baseUrl;?>/ad_units/<?php echo $new_model->id.".".$new_model->extension; ?>" />
+			<?php } ?>
 		</div><br />
 		
 		<div>
