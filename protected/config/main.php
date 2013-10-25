@@ -57,9 +57,9 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=advertisement_simulator; unix_socket=/tmp/mysql.sock',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '112358',
+			//'password' => '112358',
 			//'password' => 'root',
-			//'password' => 'clog186',
+			'password' => 'clog186',
 			'charset' => 'utf8',
 		),
 		
