@@ -16,8 +16,9 @@ class AdvertisementUnitController extends Controller
 		$filterChain->run();
 	}
 
-	public function actionIndex() {
+	public function actionIndex($advertisement_type_id=1) {
 		$model = new AdvertisementUnit('search');
+		$model->advertisement_type_id = $advertisement_type_id;
 		$this->render('index', array('model'=>$model, 'team'=>$this->_team));
 	}
 
