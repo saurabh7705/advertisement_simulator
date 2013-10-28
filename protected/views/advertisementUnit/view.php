@@ -18,6 +18,7 @@
 		<br clear="all" />
 	</div><br />
 
+	<?php if(Yii::app()->user->isTeam) { ?>
 	<?php if($model->auctionStarted()) { ?>
 		<div id="bid_area_for_current_transfer">
 			<?php echo $this->renderPartial('_bid',array('unit'=>$model,'default_bid'=>$model->minAllowedBidAmount)); ?>
@@ -35,6 +36,7 @@
 				<?php echo CHtml::link('Refund', array('/advertisementUnit/refund', 'id'=>$model->id), array('class'=>'btn btn-large btn-success refund_button ml10')); ?>
 			</section>
 		<?php } ?>
+	<?php } ?>
 	<?php } ?>
 </div>
 

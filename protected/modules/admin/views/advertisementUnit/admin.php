@@ -6,7 +6,11 @@
 		'ajaxUrl'=>array('/admin/advertisementUnit/admin'),
 		'columns'=>array(
 			'id',
-			'title',
+			array(
+				'name'=>'title',
+				'type'=>"raw",
+				'value'=>'CHtml::link($data->title, array("/advertisementUnit/view", "id"=>$data->id), array("target"=>"_blank"))'
+			),
 			'cost',
 			'impressions',
 			'index',
@@ -30,7 +34,7 @@
 	            'value'=>'($data->active_bid) ? number_format($data->active_bid->amount) : "" ',
 	            'filter' => ''
 	        ),
-	        array(
+	        /*array(
 			    'class'=>'CButtonColumn',
 			    'template'=>'{start_auction}',
 			    'buttons'=>array
@@ -45,7 +49,7 @@
 						),
 			        ),
 			    )
-			),
+			),*/
 			array(
 				'class'=>'CButtonColumn',
 				'template'=>'{update}{delete}',
