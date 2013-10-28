@@ -6,7 +6,7 @@
                 <ul class="nav nav-tabs m20">
                         <?php foreach($types as $type) { ?>
                                 <li class="<?php echo ($advertisement_type_id == $type->id) ? 'active' : ''; ?>">
-                                        <?php echo CHtml::link($type->name, array('/admin/advertisementUnit/index', 'advertisement_type_id'=>$type->id)); ?>
+                                        <?php echo CHtml::link($type->name, array('/advertisementUnit/index', 'advertisement_type_id'=>$type->id)); ?>
                                 </li>
                         <?php } ?>
                 </ul>
