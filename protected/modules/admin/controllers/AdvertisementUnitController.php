@@ -1,12 +1,13 @@
 <?php
 class AdvertisementUnitController extends Controller
 {
-	public function actionIndex($id='') {
+	public function actionIndex($id='', $advertisement_type_id=1) {
 		if($id)
 			$new_model = $this->loadModel($id);
 		else
 			$new_model = new AdvertisementUnit;
 		$grid_model = new AdvertisementUnit('search');
+        $grid_model->advertisement_type_id = $advertisement_type_id;
 		if(isset($_POST["AdvertisementUnit"])) {
 			$new_model->attributes = $_POST["AdvertisementUnit"];
 			if($_POST['AdvertisementUnit']['auction_deadline'])
@@ -26,7 +27,8 @@ class AdvertisementUnitController extends Controller
 		}
 		$this->render('index',array(
 			'new_model'=>$new_model,
-			'grid_model' => $grid_model
+			'grid_model' => $grid_model,
+			'advertisement_type_id'=>$advertisement_type_id
 		));
 	}
 	
@@ -60,6 +62,23 @@ class AdvertisementUnitController extends Controller
 		$model = $this->loadModel($id);
 		$model->delete();
 		$this->redirect(array('/admin/advertisementUnit/index'));
+	}
+
+	public function actionDuplicate($id) {
+		$model = $this->loadModel($id);
+		$new_model = new AdvertisementUnit;
+		$new_model->attributes = $model->attributes;
+
+		if($new_model->save()){
+			if($new_model->file_name) {
+				$model_path = Yii::app()->basePath."/../ad_units/$model->id.$model->extension";
+				$new_model_path = Yii::app()->basePath."/../ad_units/$new_model->id.$new_model->extension";
+				copy($model_path, $new_model_path);
+			}
+			$this->redirect(array('/admin/advertisementUnit/index', 'id'=>$new_model->id));
+		}
+		else
+			throw new CHttpException(404,'The requested page does not exist.');
 	}
 	
 	public function loadModel($id) {

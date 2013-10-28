@@ -39,11 +39,11 @@ class AdvertisementUnitController extends Controller
 
 	public function actionBuy($id) {
 		$model = $this->loadModel($id);
-		if( $this->_team->hasBalance($model->cost) && !$this->_team->unit_log(array('params'=>array('unit_id'=>$model->id))) && !$model->in_auction){
+		if( $this->_team->hasBalance($model->costAccordingToFrequency) && !$this->_team->unit_log(array('params'=>array('unit_id'=>$model->id))) && !$model->in_auction){
 			FinanceLog::create(array(
 				'advertisement_unit_id'=>$model->id,
 				'team_id'=>$this->_team->id,
-				'amount'=>$model->cost,
+				'amount'=>$model->costAccordingToFrequency,
 			));
 			Yii::app()->user->setFlash('success', 'Bought Successfully');
 		}		

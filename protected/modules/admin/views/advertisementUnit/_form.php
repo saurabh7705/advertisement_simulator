@@ -36,8 +36,8 @@
 		</div><br />
 
 		<div>
-			<?php echo $form->labelEx($new_model,'in_auction'); ?>
-			<?php echo $form->checkBox($new_model,'in_auction',array('class'=>'in_auction_checkbox')); ?>
+			<?php echo $form->labelEx($new_model,'high_frequency'); ?>
+			<?php echo $form->checkBox($new_model,'high_frequency'); ?>
 		</div><br />
 
 		<div class="deadline_wrapper" style="display:<?php echo ($new_model->in_auction == 1) ? 'block' : 'none'; ?>;">

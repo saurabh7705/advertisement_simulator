@@ -2,7 +2,7 @@
 <div class="container" >
 	<div class="row">
     	<div class="span3">
-    		<a href="<?php echo Yii::app()->createUrl("/site/index"); ?>" title="Indian Advertising League" id="logo"><img src="<?php echo Yii::app()->baseUrl; ?>/images/ial_logo.png" alt="Indian Advertising League" /></a>
+    		<a href="<?php echo Yii::app()->createUrl("/site/distribution"); ?>" title="Indian Advertising League" id="logo"><img src="<?php echo Yii::app()->baseUrl; ?>/images/ial_logo.png" alt="Indian Advertising League" /></a>
         </div>
         <div class="span9">
             <nav>

@@ -6,8 +6,8 @@
 
 	<div class="theme_item">
 		<div class="span5 ml0">
-			<p>Cost: <strong>Rs. <?php echo number_format($model->cost); ?></strong></p>
-			<p class="m10">Impressions: <strong><?php echo number_format($model->impressions); ?></strong></p>
+			<p>Cost: <strong>Rs. <?php echo number_format($model->costAccordingToFrequency); ?></strong></p>
+			<p class="m10">Impressions: <strong><?php echo number_format($model->impressionsCount); ?></strong></p>
 			<p class="m10">Index: </strong><?php echo $model->index; ?></strong></p>
 		</div>
 		<div class="span5">

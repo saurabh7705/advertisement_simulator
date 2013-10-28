@@ -104,7 +104,7 @@ class Team extends CActiveRecord
 	public function getTotalImpressions() {
 		$total = 0;
 		foreach($this->unit_logs as $log)
-			$total += $log->advertisement_unit->impressions; 
+			$total += $log->advertisement_unit->impressionsCount; 
 		return $total;
 	}
 

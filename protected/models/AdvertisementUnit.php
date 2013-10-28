@@ -20,6 +20,7 @@ class AdvertisementUnit extends CActiveRecord
 	const AUCTION_INACTIVE = 0;
 	const AUCTION_ACTIVE = 1;
 	const AUCTION_CLOSED = 2;
+	public $advertisement_type_name;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -37,13 +38,13 @@ class AdvertisementUnit extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('advertisement_type_id, title', 'required'),
-			array('advertisement_type_id, cost, impressions, in_auction, created_at, updated_at', 'numerical', 'integerOnly'=>true),
+			array('advertisement_type_id, cost, impressions, in_auction, created_at, updated_at, high_frequency', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
 			array('description, auction_deadline, auction_status, active_bid_id, index, file_name, extension', 'safe'),
 			array('auction_deadline', 'requiredWhenInAuction'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, advertisement_type_id, title, description, cost, impressions, in_auction, auction_deadline, index, created_at, updated_at', 'safe', 'on'=>'search'),
+			array('id, advertisement_type_id, title, description, cost, impressions, in_auction, auction_deadline, high_frequency, index, created_at, updated_at, advertisement_type_name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -200,6 +201,24 @@ class AdvertisementUnit extends CActiveRecord
         return $date_str;
     }
 
+    public function getCostAccordingToFrequency() {
+    	if($this->high_frequency == 1)
+    		return ($this->cost * 1.5);
+    	else
+    		return $this->cost;
+    }
+
+    public function getImpressionsCount() {
+    	$impressions = $this->impressions;
+    	if($this->high_frequency == 1)
+    		$impressions *= 1.5;
+
+    	if($this->index)
+    		return ( $impressions * $this->index);
+    	else
+    		return $impressions;
+    }
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
@@ -220,7 +239,8 @@ class AdvertisementUnit extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->with[] = 'advertisement_type';
-		$criteria->compare('advertisement_type.name',$this->advertisement_type_id, true);
+		$criteria->compare('advertisement_type_id',$this->advertisement_type_id);
+		$criteria->compare('advertisement_type.name',$this->advertisement_type_name, true);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('cost',$this->cost);
@@ -230,6 +250,7 @@ class AdvertisementUnit extends CActiveRecord
 		$criteria->compare('auction_deadline',$this->auction_deadline);
 		$criteria->compare('created_at',$this->created_at);
 		$criteria->compare('updated_at',$this->updated_at);
+		$criteria->compare('high_frequency',$this->high_frequency);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

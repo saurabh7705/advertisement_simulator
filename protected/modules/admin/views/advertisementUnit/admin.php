@@ -14,9 +14,19 @@
 			'cost',
 			'impressions',
 			'index',
-			'description',
 			array(
-				'name'=>'advertisement_type_id',
+				'name'=>'high_frequency',
+				'value'=>'$data->high_frequency == 1 ? "Yes" : "No"',
+				'filter' => CHtml::dropDownList(
+					'AdvertisementUnit[high_frequency]',
+					$model->high_frequency,
+					array('0' => 'No', '1' => 'Yes'),
+					array('prompt' => 'All')
+				),
+			),
+			//'description',
+			array(
+				'name'=>'advertisement_type_name',
 				'value'=>'$data->advertisement_type->name'
 			),
 			array(
@@ -50,6 +60,21 @@
 			        ),
 			    )
 			),*/
+			array(
+			    'class'=>'CButtonColumn',
+			    'template'=>'{duplicate_unit}',
+			    'buttons'=>array
+			    (
+			        'duplicate_unit' => array
+			        (
+			            'label'=>'Duplicate it',
+			            'url'=>'Yii::app()->createUrl("/admin/advertisementUnit/duplicate", array("id"=>$data->id))',
+						'options' => array(
+							'confirm' => 'Sure you want to duplicate this ad unit?',
+						),
+			        ),
+			    )
+			),
 			array(
 				'class'=>'CButtonColumn',
 				'template'=>'{update}{delete}',
