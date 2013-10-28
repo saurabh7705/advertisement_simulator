@@ -495,3 +495,28 @@ REQUEST_URI=/advertisement_simulator/admin/advertisementUnit/index
 in /var/www/advertisement_simulator/protected/modules/admin/views/advertisementUnit/_form.php (53)
 in /var/www/advertisement_simulator/protected/modules/admin/views/advertisementUnit/index.php (14)
 in /var/www/advertisement_simulator/protected/modules/admin/controllers/AdvertisementUnitController.php (28)
+2013/10/25 19:15:44 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in /var/www/advertisement_simulator/yii/framework/db/CDbConnection.php:382
+Stack trace:
+#0 /var/www/advertisement_simulator/yii/framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /var/www/advertisement_simulator/yii/framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /var/www/advertisement_simulator/yii/framework/base/CModule.php(387): CDbConnection->init()
+#3 /var/www/advertisement_simulator/yii/framework/base/CApplication.php(450): CModule->getComponent('db')
+#4 /var/www/advertisement_simulator/yii/framework/db/ar/CActiveRecord.php(634): CApplication->getDb()
+#5 /var/www/advertisement_simulator/yii/framework/db/ar/CActiveRecord.php(1428): CActiveRecord->getDbConnection()
+#6 /var/www/advertisement_simulator/yii/framework/db/ar/CActiveRecord.php(1484): CActiveRecord->getTableAlias(true)
+#7 /var/www/advertisement_simulator/protected/components/WebUser.php(19): CActiveRecord->findByPk('1')
+#8 /var/www/advertisement_simulator/yii/framework/base/CComponent.php(111): WebUser->getTeam()
+#9 /var/www/advertisement_simulator/yii/framework/web/auth/CWebUser.php(146): CComponent->__get('team')
+#10 /var/www/advertisement_simulator/protected/components/WebUser.php(7): CWebUser->__get('team')
+#11 /var/www/advertisement_simulator/yii/framework/base/CComponent.php(111): WebUser->getIsAdmin()
+#12 /var/www/advertisement_simulator/yii/framework/web/auth/CWebUser.php(146): CComponent->__get('isAdmin')
+#13 /var/www/advertisement_simulator/protected/modules/admin/AdminModule.php(12): CWebUser->__get('isAdmin')
+#14 /var/www/advertisement_simulator/yii/framework/web/CController.php(263): AdminModule->beforeControllerAction(Object(AdvertisementUnitController), Object(CInlineAction))
+#15 /var/www/advertisement_simulator/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#16 /var/www/advertisement_simulator/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/advertise...')
+#17 /var/www/advertisement_simulator/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#18 /var/www/advertisement_simulator/index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/advertisement_simulator/admin/advertisementUnit/index/id/3
+HTTP_REFERER=http://localhost/advertisement_simulator/admin/advertisementUnit/index
+---
