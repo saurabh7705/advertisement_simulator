@@ -22,14 +22,15 @@ class AdvertisementUnitController extends Controller
 		$this->render('index', array('model'=>$model, 'team'=>$this->_team,'advertisement_type_id'=>$advertisement_type_id));
 	}
 
-	public function actionFilter() {
+	public function actionFilter($advertisement_type_id) {
 		$model = new AdvertisementUnit("search");
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['AdvertisementUnit']))
 			$model->attributes=$_GET['AdvertisementUnit'];
+		$model->advertisement_type_id = $advertisement_type_id;
 
 		$this->render('index',array(
-			'model'=>$model, 'team'=>$this->_team
+			'model'=>$model, 'team'=>$this->_team, 'advertisement_type_id'=>$advertisement_type_id
 		));
 	}
 	

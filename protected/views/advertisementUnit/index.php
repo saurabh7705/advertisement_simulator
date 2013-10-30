@@ -17,7 +17,7 @@
 			'id'=>'team_grid',
 			'dataProvider'=>$model->search(),
 			'filter'=>$model,
-			'ajaxUrl'=>array('/advertisementUnit/filter'),
+			'ajaxUrl'=>array('/advertisementUnit/filter', 'advertisement_type_id'=>$advertisement_type_id),
 			'columns'=>array(
 				array(
 					'name'=>'title',
@@ -25,32 +25,33 @@
 					'type'=>'raw'
 				),
 				'cost',
-				'impressions',
+				array(
+					'name'=>'impressions',
+					'visible'=>($advertisement_type_id == 1 || $advertisement_type_id == 3)
+				),				
 				'index',
-	                        array(
-	                                'name'=>'high_frequency',
-	                                'value'=>'$data->high_frequency == 1 ? "Yes" : "No"',
-	                                'filter' => CHtml::dropDownList(
-	                                        'AdvertisementUnit[high_frequency]',
-	                                        $model->high_frequency,
-	                                        array('0' => 'No', '1' => 'Yes'),
-	                                        array('prompt' => 'All')
-	                                ),
-	                        ),
-	                        //'description',
-	                        array(
-	                                'name'=>'advertisement_type_name',
-	                                'value'=>'$data->advertisement_type->name'
-	                        ),
 				array(
-					'header'=>'Infinite/Auction',
-					'value'=>'($data->in_auction == 1) ? "Auction" : "Infinite"',
+					'name'=>'high_frequency',
+					'value'=>'$data->high_frequency == 1 ? "Yes" : "No"',
+					'filter' => CHtml::dropDownList(
+						'AdvertisementUnit[high_frequency]',
+						$model->high_frequency,
+						array('0' => 'No', '1' => 'Yes'),
+						array('prompt' => 'All')
+					),
+					'visible'=>($advertisement_type_id == 3)
 				),
+				//'description',
+				/*array(
+					'name'=>'advertisement_type_name',
+					'value'=>'$data->advertisement_type->name'
+				),*/
 				array(
-		            'name'=>'auction_deadline',
-		            'value'=>'(!$data->auction_deadline) ? $data->auction_deadline : (date("H:i D d-m-Y",$data->auction_deadline))',
-		            'filter' => ''
-		        ),
+					'name'=>'auction_deadline',
+					'value'=>'(!$data->auction_deadline) ? "Infinite" : (date("H:i D d-m-Y",$data->auction_deadline))',
+					'filter' => '',
+					'visible'=>($advertisement_type_id == 2 || $advertisement_type_id == 3)
+				),
 				array(
 					'class'=>'CButtonColumn',
 					'template'=>'{view}',

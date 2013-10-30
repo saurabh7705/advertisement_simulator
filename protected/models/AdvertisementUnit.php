@@ -257,6 +257,7 @@ class AdvertisementUnit extends CActiveRecord
 			'sort'=>array(
 			    'defaultOrder'=>'t.created_at DESC',
 	        ),
+			'pagination'=>array('pageSize'=>20),
 		));
 	}
 
