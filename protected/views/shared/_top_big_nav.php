@@ -7,6 +7,7 @@
         <div class="span9">
             <nav>
             	<ul class="top_nav">
+					<li><?php echo CHtml::link('Information', array('/site/distribution')); ?></li>
             		<?php if(Yii::app()->user->isAdmin) { ?>
 	            		<li><?php echo CHtml::link('Teams', array('/admin/team/index')); ?></li>
 	            		<li><?php echo CHtml::link('Ad Groups', array('/admin/advertisementType/index')); ?></li>
