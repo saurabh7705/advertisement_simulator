@@ -29,7 +29,8 @@
 					'name'=>'impressions',
 					'visible'=>($advertisement_type_id == 1 || $advertisement_type_id == 3)
 				),				
-				'index',
+				//'index',
+				'stars',
 				array(
 					'name'=>'high_frequency',
 					'value'=>'$data->high_frequency == 1 ? "Yes" : "No"',

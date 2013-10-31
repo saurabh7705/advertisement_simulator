@@ -40,7 +40,7 @@ class AdvertisementUnit extends CActiveRecord
 			array('advertisement_type_id, title', 'required'),
 			array('advertisement_type_id, cost, impressions, in_auction, created_at, updated_at, high_frequency', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>255),
-			array('description, auction_deadline, auction_status, active_bid_id, index, file_name, extension', 'safe'),
+			array('description, auction_deadline, auction_status, active_bid_id, index, stars, file_name, extension', 'safe'),
 			array('auction_deadline', 'requiredWhenInAuction'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -252,6 +252,7 @@ class AdvertisementUnit extends CActiveRecord
 		$criteria->compare('cost',$this->cost);
 		$criteria->compare('impressions',$this->impressions);
 		$criteria->compare('t.index',$this->index);
+		$criteria->compare('t.stars',$this->stars);
 		$criteria->compare('in_auction',$this->in_auction);
 		$criteria->compare('auction_deadline',$this->auction_deadline);
 		$criteria->compare('created_at',$this->created_at);

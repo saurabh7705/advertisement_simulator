@@ -14,6 +14,7 @@
 			'cost',
 			'impressions',
 			'index',
+			'stars',
 			array(
 				'name'=>'high_frequency',
 				'value'=>'$data->high_frequency == 1 ? "Yes" : "No"',

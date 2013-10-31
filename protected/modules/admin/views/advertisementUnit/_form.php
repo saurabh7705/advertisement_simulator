@@ -34,6 +34,11 @@
 			<?php echo $form->labelEx($new_model,'index'); ?>
 			<?php echo $form->textField($new_model,'index'); ?>
 		</div><br />
+		
+		<div>
+			<?php echo $form->labelEx($new_model,'stars'); ?>
+			<?php echo $form->textField($new_model,'stars'); ?>
+		</div><br />
 
 		<div>
 			<?php echo $form->labelEx($new_model,'high_frequency'); ?>

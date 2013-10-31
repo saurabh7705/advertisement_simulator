@@ -20,7 +20,8 @@
 					<th>Description</th>
 					<th>Cost</th>
 					<th>Impressions</th>
-					<th>Index</th>
+					<?php /*?><th>Index</th><-->><?php */ ?>
+					<th>Stars</th>
 					<th>Remove</th>
 				</tr>
 				<?php foreach($team->unit_logs as $log_unit) { 
@@ -30,7 +31,8 @@
 						<td><?php echo $ad_unit->description; ?></p><br />
 						<td><strong>Rs. <?php echo number_format($log_unit->amount); ?></strong></td>
 						<td></strong><?php echo number_format($ad_unit->impressionsCount); ?></strong></td>
-						<td></strong><?php echo $ad_unit->index; ?></strong></td>
+						<?php /*?><td></strong><?php echo $ad_unit->index; ?></strong></td><?php */ ?>
+						<td></strong><?php echo $ad_unit->stars; ?></strong></td>
 						<td><?php echo CHtml::link('Remove', array('/advertisementUnit/refund', 'id'=>$ad_unit->id), array('class'=>'btn btn-danger', 'confirm'=>"Remove $ad_unit->title?")); ?></td>
 					</tr>
 				<?php } ?>
