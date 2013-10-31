@@ -50,5 +50,6 @@
 			</div><!--end #main -->
 		</div><!--end row -->
 	</div><!--end #main_container -->
+	<?php $this->renderPartial("//shared/_footer"); ?>
 </body>
 </html>
