@@ -31,7 +31,7 @@
 						<td><strong>Rs. <?php echo number_format($log_unit->amount); ?></strong></td>
 						<td></strong><?php echo number_format($ad_unit->impressionsCount); ?></strong></td>
 						<td></strong><?php echo $ad_unit->index; ?></strong></td>
-						<td><?php echo CHtml::link('Remove', array('/advertisementUnit/refund', 'id'=>$ad_unit->id), array('class'=>'btn btn-danger', 'confirm'=>"Remove this item?")); ?></td>
+						<td><?php echo CHtml::link('Remove', array('/advertisementUnit/refund', 'id'=>$ad_unit->id), array('class'=>'btn btn-danger', 'confirm'=>"Remove $ad_unit->title?")); ?></td>
 					</tr>
 				<?php } ?>
 				</table>
