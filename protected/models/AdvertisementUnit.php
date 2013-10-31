@@ -251,7 +251,7 @@ class AdvertisementUnit extends CActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('cost',$this->cost);
 		$criteria->compare('impressions',$this->impressions);
-		$criteria->compare('index',$this->index);
+		$criteria->compare('t.index',$this->index);
 		$criteria->compare('in_auction',$this->in_auction);
 		$criteria->compare('auction_deadline',$this->auction_deadline);
 		$criteria->compare('created_at',$this->created_at);
