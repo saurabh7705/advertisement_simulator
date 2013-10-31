@@ -27,16 +27,19 @@
 				array(
 					'name'=>"cost",
 					'value'=>'number_format($data->cost)',
-					'htmlOptions'=>array('style'=>'text-align: right; padding-right:3%')
+					'htmlOptions'=>array('style'=>'text-align: right; padding-right:4%')
 				),
 				array(
 					'name'=>'impressions',
 					'value'=>'number_format($data->impressions)',
 					'visible'=>($advertisement_type_id == 1 || $advertisement_type_id == 3),
-					'htmlOptions'=>array('style'=>'text-align: right; padding-right:3%')
+					'htmlOptions'=>array('style'=>'text-align: right; padding-right:4%')
 				),				
 				//'index',
-				'stars',
+				array(
+					'name'=>'stars',
+					'htmlOptions'=>array('style'=>'width:10%; text-align: right; padding-right: 1%;')
+				),
 				array(
 					'name'=>'high_frequency',
 					'value'=>'$data->high_frequency == 1 ? "Yes" : "No"',
