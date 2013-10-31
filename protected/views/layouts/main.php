@@ -27,6 +27,7 @@
 			"js/jquery.ui.totop.min.js",
 			"js/jquery.colorbox-min.js",
 			"js/transform.js",
+			"js/clock.js",
 		),
 		'depends'=>array('jquery')
 	));

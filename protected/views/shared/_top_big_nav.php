@@ -21,9 +21,16 @@
             		<?php if(Yii::app()->user->isGuest) { ?>
 	            		<li><?php echo CHtml::link('Login', array('/site/login')); ?></li>
             		<?php } ?>
+					<li id="clock" title="Hitwicket Server Time. All actions in the game are synced to this time"></li>
             	</ul> 
             </nav>
         </div>
     </div>
 </div>
 </div>
+<script>
+$(document).ready(function() {
+	var time = new Date(<?php echo date("Y,m-1,d,H,i,s"); ?>);
+	ShowClock(time);
+});
+</script>
