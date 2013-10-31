@@ -10,6 +10,7 @@
     <link rel="stylesheet/less" href="<?php echo $base_url; ?>/less/style.less">	
 	<link rel="stylesheet" type="text/css" media="screen,projection" href="<?php echo $base_url; ?>/css/ui.totop.css" />
 	<link rel="stylesheet" type="text/css" media="screen,projection" href="<?php echo $base_url; ?>/css/jquery.pointpoint.css" />
+	<link rel="shortcut icon" href="<?php echo $base_url; ?>/images/favicon.png" type="image/png">
     <script src="<?php echo $base_url; ?>/js/libs/less-1.3.0.min.js"></script>
 	<?php
 	$cs = Yii::app()->clientScript;

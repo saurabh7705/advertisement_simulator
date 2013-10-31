@@ -1,6 +1,6 @@
 <div class="container">
 	<footer class="row">
-		<div class="span9">
+		<?php /*?><div class="span9">
 		<img style="width:330px" src="<?php echo Yii::app()->baseUrl; ?>/images/sponsors/SBB.png" />
 		<img src="<?php echo Yii::app()->baseUrl; ?>/images/sponsors/social_samosa_white.png" />
 		<img src="<?php echo Yii::app()->baseUrl; ?>/images/sponsors/Desidime.png" />
@@ -13,6 +13,7 @@
 			<h3 class="powered_by">Powered By</h3>
 			<a href="http://hitwicket.com?utm_source=adverb_footer&utm_medium=adverb_site&utm_campaign=adverb" target="_blank"><img src="<?php echo Yii::app()->baseUrl; ?>/images/sponsors/Hitwicket.png" /></a>
 		</div>
-		<br clear="all" />
+		<br clear="all" /><?php */ ?>
+		<img src="<?php echo Yii::app()->baseUrl; ?>/images/sponsor_logos.png" />
 	</footer>
 </div>

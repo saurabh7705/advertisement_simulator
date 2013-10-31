@@ -12,7 +12,7 @@ table tr td:nth-child(3) {
 </style>
 <div class="padit">
 	<div class="tac">
-		<h1>Mumbai total population - 16,434,386</h1>
+		<h1>City total population - 16,434,386</h1>
 		<br /><br />
 		<center>
 			<table class="table table-striped" style="width:50%">
