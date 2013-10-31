@@ -24,10 +24,16 @@
 					'value'=>'CHtml::link($data->title, array("/advertisementUnit/view", "id"=>$data->id))',
 					'type'=>'raw'
 				),
-				'cost',
+				array(
+					'name'=>"cost",
+					'value'=>'number_format($data->cost)',
+					'htmlOptions'=>array('style'=>'text-align: right; padding-right:3%')
+				),
 				array(
 					'name'=>'impressions',
-					'visible'=>($advertisement_type_id == 1 || $advertisement_type_id == 3)
+					'value'=>'number_format($data->impressions)',
+					'visible'=>($advertisement_type_id == 1 || $advertisement_type_id == 3),
+					'htmlOptions'=>array('style'=>'text-align: right; padding-right:3%')
 				),				
 				//'index',
 				'stars',
