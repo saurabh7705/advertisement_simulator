@@ -20,9 +20,13 @@
 
 	<?php if(Yii::app()->user->isTeam) { ?>
 	<?php if($model->auctionStarted()) { ?>
-		<div id="bid_area_for_current_transfer">
-			<?php echo $this->renderPartial('_bid',array('unit'=>$model,'default_bid'=>$model->minAllowedBidAmount)); ?>
-		</div>
+		<?php if($model->auction_deadline >= time()) { ?>
+			<div id="bid_area_for_current_transfer">
+				<?php echo $this->renderPartial('_bid',array('unit'=>$model,'default_bid'=>$model->minAllowedBidAmount)); ?>
+			</div>
+		<?php } else { ?>
+			<section class="highlight_block_blue tac">Deadline for bidding is over.</section>
+		<?php } ?>
 	<?php }
 	else if( !$team->unit_log(array('params'=>array('unit_id'=>$model->id))) ) { ?>
 		<center><?php echo CHtml::link('Buy', array('/advertisementUnit/buy', 'id'=>$model->id), array('class'=>'btn btn-large btn-success buy_button')); ?></center>

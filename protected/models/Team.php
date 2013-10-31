@@ -57,6 +57,7 @@ class Team extends CActiveRecord
 		return array(
 			'unit_logs'=>array(self::HAS_MANY, 'FinanceLog', 'team_id'),
 			'unit_log'=>array(self::HAS_ONE, 'FinanceLog', 'team_id', 'condition'=>'advertisement_unit_id = :unit_id'),
+			'notifications'=>array(self::HAS_MANY, 'Notification', 'team_id'),
 		);
 	}
 
@@ -110,6 +111,10 @@ class Team extends CActiveRecord
 
 	public function hasBalance($cost) {
 		return ($this->leftBalance > $cost);
+	}
+	
+	public function getActiveBids() {
+		return Bid::model()->filter_team($this->id)->active()->order_recent()->findAll();
 	}
 
 	public function getLeftBalance() {

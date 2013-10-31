@@ -36,6 +36,27 @@
 			<?php } else { ?>
 				<section class="highlight_block_blue">No ad units bought till now.</section>
 			<?php } ?>
+			
+			<?php $active_bids = $team->activeBids; ?>
+			<h4 class="sub_head m30">Active Bids</h4>
+			<?php if($active_bids) { ?>
+				<table class="table table-striped">
+				<tr>
+					<th>Ad Unit</th>
+					<th>Amount</th>
+					<th>Created At</th>
+				</tr>
+				<?php foreach($active_bids as $active_bid) { ?>
+					<tr>
+						<td><?php echo CHtml::link($active_bid->advertisement_unit->title, array('/advertisementUnit/view', 'id'=>$active_bid->advertisement_unit_id), array('target'=>"_blank")); ?></td>
+						<td><strong>Rs. <?php echo number_format($active_bid->amount); ?></strong></td>
+						<td></strong><?php echo date("H:i D d-m-Y", $active_bid->created_at); ?></strong></td>
+					</tr>
+				<?php } ?>
+				</table>
+			<?php } else { ?>
+				<section class="highlight_block_blue">No active bids at the moment.</section>
+			<?php } ?>
 		</div>
 		<div class="span4">
 			<h4 class="sub_head">Current Balance</h4>
@@ -43,6 +64,13 @@
 
 			<h4 class="sub_head">Total Impressions</h4>
 			<div><?php echo number_format($team->totalImpressions); ?></div>
+			
+			<h4 class="sub_head">Notifications</h4>
+			<ul>
+				<?php foreach($team->notifications as $notification) { ?>
+					<li><?php echo date("H:i d/m", $notification->created_at); ?> - <?php echo $notification->content; ?></li>
+				<?php } ?>
+			</ul>
 		</div>
 	</div>
 	<br clear="all"/>

@@ -85,7 +85,25 @@ class Bid extends CActiveRecord
 		return array(
 			'advertisement_unit'=>array(self::BELONGS_TO, 'AdvertisementUnit', 'advertisement_unit_id'),
 			'team'=>array(self::BELONGS_TO, 'Team', 'team_id'),
+			'active_on_advertisement_unit'=>array(self::HAS_ONE, 'AdvertisementUnit', 'active_bid_id'),
 		);
+	}
+	
+	public function scopes() {
+		return array(
+			'active' => array(
+				'with'=>'active_on_advertisement_unit',
+				'condition'=>"active_on_advertisement_unit.id IS NOT NULL"
+			),
+			'order_recent' => array(
+				'order'=>"$this->tableAlias.created_at DESC"
+			),
+		);
+	}
+	
+	public function filter_team($team_id) {
+		$this->getDbCriteria()->mergeWith(array('condition'=>"$this->tableAlias.team_id = $team_id"));
+		return $this;
 	}
 
 	/**
@@ -114,8 +132,18 @@ class Bid extends CActiveRecord
 		if($this->isNewRecord) {
 			$this->advertisement_unit->updateCurrentBidRecords($this);
 			$this->advertisement_unit->checkAndExtendTransfer($this);
+			$this->notifyPreviousBidTeam();
 		}
 		return parent::afterSave();
+	}
+	
+	public function notifyPreviousBidTeam() {
+		$previous_bid = Bid::model()->find(array(
+			'condition'=>"advertisement_unit_id = :advertisement_unit_id and id < :this_id", 'order'=>'id DESC',
+			'params'=>array('advertisement_unit_id'=>$this->advertisement_unit_id, 'this_id'=>$this->id)
+		));
+		if($previous_bid)
+			Notification::create(array('team_id'=>$previous_bid->team_id, 'action_item_type'=>'Bid', 'action_id'=>$previous_bid->id));
 	}
 
 	public static function build($attributes) {
