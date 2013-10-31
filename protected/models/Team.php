@@ -57,7 +57,7 @@ class Team extends CActiveRecord
 		return array(
 			'unit_logs'=>array(self::HAS_MANY, 'FinanceLog', 'team_id'),
 			'unit_log'=>array(self::HAS_ONE, 'FinanceLog', 'team_id', 'condition'=>'advertisement_unit_id = :unit_id'),
-			'notifications'=>array(self::HAS_MANY, 'Notification', 'team_id'),
+			'notifications'=>array(self::HAS_MANY, 'Notification', 'team_id', 'order'=>'created_at DESC'),
 		);
 	}
 
