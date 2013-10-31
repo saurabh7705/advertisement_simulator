@@ -7,9 +7,12 @@
 	<div class="theme_item">
 		<div class="span5 ml0">
 			<p>Cost: <strong>Rs. <?php echo number_format($model->costAccordingToFrequency); ?></strong></p>
-			<p class="m10">Impressions: <strong><?php echo number_format($model->impressionsCount); ?></strong></p>
+			<?php /*?><p class="m10">Impressions: <strong><?php echo number_format($model->impressionsCount); ?></strong></p><?php */ ?>
 			<?php /*?><p class="m10">Index: </strong><?php echo $model->index; ?></strong></p><?php */?>
-			<p class="m10">Stars: </strong><?php echo $model->stars; ?></strong></p>
+			<?php $stars_width = $model->stars * 20; ?>
+			<div class="m10">Stars: 
+				<div class="ad_unit_stars" style="width:<?php echo $stars_width; ?>px;">&nbsp;</div>
+			</div>
 		</div>
 		<div class="span5">
 			<?php if($model->file_name){ ?>

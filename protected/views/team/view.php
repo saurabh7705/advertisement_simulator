@@ -19,8 +19,8 @@
 					<th>Title</th>
 					<th>Description</th>
 					<th class="tar" style="padding-right: 3%;">Cost</th>
-					<th class="tar" style="padding-right: 3%;">Impressions</th>
-					<?php /*?><th>Index</th><-->><?php */ ?>
+					<?php /*?><th class="tar" style="padding-right: 3%;">Impressions</th><?php */ ?>
+					<?php /*?><th>Index</th><?php */ ?>
 					<th>Stars</th>
 					<th>Remove</th>
 				</tr>
@@ -30,9 +30,10 @@
 						<td><strong><?php echo $ad_unit->title; ?></strong></td>
 						<td><?php echo $ad_unit->description; ?></p><br />
 						<td class="tar" style="padding-right: 3%;"><strong>Rs. <?php echo number_format($log_unit->amount); ?></strong></td>
-						<td class="tar" style="padding-right: 3%;"></strong><?php echo number_format($ad_unit->impressionsCount); ?></strong></td>
+						<?php /*?><td class="tar" style="padding-right: 3%;"></strong><?php echo number_format($ad_unit->impressionsCount); ?></strong></td><?php */ ?>
 						<?php /*?><td></strong><?php echo $ad_unit->index; ?></strong></td><?php */ ?>
-						<td></strong><?php echo $ad_unit->stars; ?></strong></td>
+						<?php $stars_width = $ad_unit->stars * 20; ?>
+						<td><div class="ad_unit_stars" style="width:<?php echo $stars_width; ?>px;">&nbsp;</div></td>
 						<td><?php echo CHtml::link('Remove', array('/advertisementUnit/refund', 'id'=>$ad_unit->id), array('class'=>'btn btn-danger', 'confirm'=>"Remove $ad_unit->title?")); ?></td>
 					</tr>
 				<?php } ?>
@@ -68,8 +69,8 @@
 			<h4 class="sub_head">Current Balance</h4>
 			<div>Rs. <?php echo number_format($team->leftBalance); ?></div>
 
-			<h4 class="sub_head">Total Impressions</h4>
-			<div><?php echo number_format($team->totalImpressions); ?></div>
+			<?php /* ?><h4 class="sub_head">Total Impressions</h4>
+			<div><?php echo number_format($team->totalImpressions); ?></div><?php */?>
 			
 			<h4 class="sub_head">Notifications</h4>
 			<ul>
