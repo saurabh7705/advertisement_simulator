@@ -2,7 +2,8 @@
 <div class="container" >
 	<div class="row">
     	<div class="span3">
-    		<a href="https://www.facebook.com/adverb.nm" title="Indian Advertising League" id="logo"><img src="<?php echo Yii::app()->baseUrl; ?>/images/ial_logo.png" alt="Indian Advertising League" /></a>
+    		<a href="https://www.facebook.com/adverb.nm" title="Indian Advertising League" id="logo" target="_blank"><img src="<?php echo Yii::app()->baseUrl; ?>/images/ial_logo.png" alt="Indian Advertising League" /></a>
+			<a href="https://www.facebook.com/adverb.nm" title="Indian Advertising League" id="logo" target="_blank"><img src="<?php echo Yii::app()->baseUrl; ?>/images/adverb.png" alt="Indian Advertising League" class='ml10' /></a>
         </div>
         <div class="span9">
             <nav>
