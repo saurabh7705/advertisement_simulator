@@ -42,7 +42,7 @@
 					'type'=>'raw',
 					//'htmlOptions'=>array('style'=>'width:10%; text-align: right; padding-right: 1%;')
 				),
-				array(
+				/*array(
 					'name'=>'high_frequency',
 					'value'=>'$data->high_frequency == 1 ? "Yes" : "No"',
 					'filter' => CHtml::dropDownList(
@@ -52,7 +52,7 @@
 						array('prompt' => 'All')
 					),
 					'visible'=>($advertisement_type_id == 3)
-				),
+				),*/
 				//'description',
 				/*array(
 					'name'=>'advertisement_type_name',

@@ -40,10 +40,10 @@
 			<?php echo $form->textField($new_model,'stars'); ?>
 		</div><br />
 
-		<div>
+		<?php /*?><div>
 			<?php echo $form->labelEx($new_model,'high_frequency'); ?>
 			<?php echo $form->checkBox($new_model,'high_frequency'); ?>
-		</div><br />
+		</div><br /><?php */?>
 
 		<div class="deadline_wrapper" style="display:<?php echo ($new_model->in_auction == 1) ? 'block' : 'none'; ?>;">
 			<?php echo $form->labelEx($new_model,'auction_deadline'); ?>

@@ -208,16 +208,16 @@ class AdvertisementUnit extends CActiveRecord
     }
 
     public function getCostAccordingToFrequency() {
-    	if($this->high_frequency == 1)
-    		return ($this->cost * 1.5);
-    	else
+    	//if($this->high_frequency == 1)
+    		//return ($this->cost * 1.5);
+    	//else
     		return $this->cost;
     }
 
     public function getImpressionsCount() {
     	$impressions = $this->impressions;
-    	if($this->high_frequency == 1)
-    		$impressions *= 1.5;
+    	//if($this->high_frequency == 1)
+    		//$impressions *= 1.5;
 
     	if($this->index)
     		return ( $impressions * $this->index);

@@ -15,7 +15,7 @@
 			'impressions',
 			'index',
 			'stars',
-			array(
+			/*array(
 				'name'=>'high_frequency',
 				'value'=>'$data->high_frequency == 1 ? "Yes" : "No"',
 				'filter' => CHtml::dropDownList(
@@ -24,7 +24,7 @@
 					array('0' => 'No', '1' => 'Yes'),
 					array('prompt' => 'All')
 				),
-			),
+			),*/
 			//'description',
 			array(
 				'name'=>'advertisement_type_name',
