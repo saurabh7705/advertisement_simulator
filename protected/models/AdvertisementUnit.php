@@ -159,8 +159,14 @@ class AdvertisementUnit extends CActiveRecord
 		}		
 	}
 
-	public function showBidCountdown($diff){
-        $date = explode('/',$diff);        
+	public function showBidCountdown(){
+		
+		$end_date = new DateTime(date('Y-m-d H:i:s', $this->auction_deadline));
+		$current_date = new DateTime(date('Y-m-d H:i:s',(floor(time()/60)*60)));
+		$diff = $current_date->diff($end_date);
+		$diff = $diff->format('%d/%h/%i');
+		
+        $date = explode('/',$diff);
         
         if($date[0] > 0){
             if($date[0] == 1)

@@ -47,12 +47,14 @@
 					<th>Ad Unit</th>
 					<th>Amount</th>
 					<th>Created At</th>
+					<th>Deadline</th>
 				</tr>
 				<?php foreach($active_bids as $active_bid) { ?>
 					<tr>
 						<td><?php echo CHtml::link($active_bid->advertisement_unit->title, array('/advertisementUnit/view', 'id'=>$active_bid->advertisement_unit_id), array('target'=>"_blank")); ?></td>
 						<td><strong>Rs. <?php echo number_format($active_bid->amount); ?></strong></td>
 						<td></strong><?php echo date("H:i D d-m-Y", $active_bid->created_at); ?></strong></td>
+						<td><?php echo date("H:i D d-m-Y", $active_bid->advertisement_unit->auction_deadline); ?> <strong>(<?php echo $active_bid->advertisement_unit->showBidCountdown(); ?>)</strong></td>
 					</tr>
 				<?php } ?>
 				</table>

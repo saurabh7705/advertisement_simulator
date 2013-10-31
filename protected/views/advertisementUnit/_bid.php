@@ -1,19 +1,12 @@
-<?php
-$end_date = new DateTime(date('Y-m-d H:i:s',$unit->auction_deadline));
-$current_date = new DateTime(date('Y-m-d H:i:s',(floor(time()/60)*60)));
-$diff = $current_date->diff($end_date); ?>
 <section class="bid_section">
-
 	<input type="button" value="Refresh" id="refresh_bid" class="btn" />
-
 	<p class="m10">
 		<?php 
 		echo "Deadline: <strong>".date("H:i D d-m-Y",$unit->auction_deadline).'</strong>';
-		echo '&nbsp;('.$unit->showBidCountdown($diff->format('%d/%h/%i')).')';
+		echo '&nbsp;('.$unit->showBidCountdown().')';
 		echo "<br />Asking price: <strong>".number_format($unit->cost).'</strong>'  ;
 
 		if($unit->active_bid_id) {
-			
 			echo "<br />Highest bid: <strong>Rs ".number_format($unit->active_bid->amount);
 			echo "</strong> by  ".$unit->active_bid->team->name;    
 		} ?>
