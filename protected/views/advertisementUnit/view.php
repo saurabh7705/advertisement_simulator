@@ -23,12 +23,12 @@
 	</div><br />
 
 	<?php if(Yii::app()->user->isTeam) { ?>
-	<?php if($model->auctionStarted()) { ?>
-		<?php if($model->auction_deadline >= time()) { ?>
+	<?php if($model->in_auction) { ?>
+		<?php if($model->auctionStarted() && $model->auction_deadline >= time()) { ?>
 			<div id="bid_area_for_current_transfer">
 				<?php echo $this->renderPartial('_bid',array('unit'=>$model,'default_bid'=>$model->minAllowedBidAmount)); ?>
 			</div>
-		<?php } else { ?>
+		<?php } else if($model->auction_deadline < time()) { ?>
 			<section class="highlight_block_blue tac">Deadline for bidding is over.</section>
 		<?php } ?>
 	<?php }
@@ -36,14 +36,14 @@
 		<center><?php echo CHtml::link('Buy', array('/advertisementUnit/buy', 'id'=>$model->id), array('class'=>'btn btn-large btn-success buy_button')); ?></center>
 	<?php }
 	else { ?>
-		<?php if($model->in_auction == 1) { ?>
+		<?php /*if($model->in_auction == 1) { ?>
 			<section class="warning_message tac">This unit has been already bought by your team.</section>
-		<?php } else { ?>
+		<?php } else {*/ ?>
 			<section class="warning_message tac">
 				This unit has been already bought by your team.
 				<?php echo CHtml::link('Refund', array('/advertisementUnit/refund', 'id'=>$model->id), array('class'=>'btn btn-large btn-success refund_button ml10')); ?>
 			</section>
-		<?php } ?>
+		<?php //} ?>
 	<?php } ?>
 	<?php } ?>
 </div>
